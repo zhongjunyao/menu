@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta charset='utf-8'>
+	<title>简单下拉菜单实现</title>
+	<style>
+		ul{
+			display: flex;
+			list-style: none;
+		}
+		.level1{
+			width:100px;
+			height:30px;
+			background-color:skyblue;
+			border-right:1px solid #000;
+			text-align: center;
+		}
+		.level1:last-child{
+			border: none;
+		}
+		.level1>div{
+			height:30px;
+			line-height:30px;
+			cursor: pointer;
+		}
+		div.level2{
+			/*display:none;*/
+			overflow:hidden;
+			background-color: red;
+			height:0;
+			transition:all .2s linear;
+		}
+		div.level2.show{
+			height:60px;
+		}
+	</style>
+ </head>
+ <body>
+ 	<ul>
+		<li class='level1'>
+			<div>一级菜单1</div>
+			<div class='level2'>
+				<div>二级菜单1</div>
+				<div>二级菜单1</div>
+			</div>
+		</li>
+		<li class='level1'>
+			<div>一级菜单2</div>
+			<div class='level2'>
+				<div>二级菜单2</div>
+				<div>二级菜单2</div>
+			</div>
+		</li>
+		<li class='level1'>
+			<div>一级菜单3</div>
+			<div class='level2'>
+				<div>二级菜单3</div>
+				<div>二级菜单3</div>
+			</div>
+		</li>
+ 	</ul>
+ 	<script>
+
+ 		var addClass = (node, className) => {
+      var current = node.className || '';
+      if ((' ' + current + ' ').indexOf(' ' + className + ' ') === -1) {
+        node.className = current? ( current + ' ' + className ) : className;
+      }
+    }
+    var delClass = (node, className) => {
+      var current = node.className || '';
+      node.className = (' ' + current + ' ').replace(' ' + className + ' ', ' ').trim();
+    }
+
+ 		var nav = document.getElementsByClassName('level1')
+ 		// console.log(nav);
+ 		for(var i=0,item;item=nav[i];i++){
+ 			// console.log(item);
+ 			item.addEventListener('mouseenter',(e)=>{
+ 				var node = e.target.getElementsByClassName('level2')[0]
+ 				// console.log(node);
+ 				addClass(node,'show')
+ 			})
+ 			item.addEventListener('mouseleave',(e)=>{
+ 				var node = e.target.getElementsByClassName('level2')[0]
+ 				delClass(node,'show')
+ 				// console.log(node);
+
+ 			})
+ 		}
+ 	</script>
+ </body>
+</html>
+
